@@ -8,13 +8,14 @@ function cmdcheck() {
 
 function main() {
 	local file_path="${1%%:*}"
+	local range=$(echo "$1" | awk -F':' '{ if ( $3 != "" ) print $3; else print $4; }')
+	if [[ -z $range ]]; then
+		local range=5
+	fi
 	local line_no=$(echo "$1" | awk -F':' '{print $2}')
 	if [[ -z $line_no ]]; then
 		local line_no=0
-	fi
-	local range=$(echo "$1" | awk -F':' '{print $3}')
-	if [[ -z $range ]]; then
-		local range=5
+		local range=9999999
 	fi
 
 	local CAT='cat -n'
