@@ -29,7 +29,8 @@ function main() {
 		local pre_line=0
 	fi
 
-	eval $CAT $file_path | awk -v base=$line_no -v range=$range -v pre_line=$pre_line '(pre_line+base-range)<=NR && NR<=(pre_line+base+range)'
+	# NOTE: tput sgr0: default ansi color code?
+	eval $CAT $file_path | awk -v base=$line_no -v range=$range -v pre_line=$pre_line '(pre_line+base-range)<=NR && NR<=(pre_line+base+range)' | sed 's/.\[38;5;238m\( *'$line_no'.\[0m *\)/'$(tput sgr0)'\1/g'
 }
 
 main "$@"
