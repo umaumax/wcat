@@ -5,7 +5,7 @@ Wrapper of cat
 ## how to install
 ```
 cd ~/local/bin
-wget https://raw.githubusercontent.com/umaumax/wcat/master/wcat.sh -O wcat
+wget https://raw.githubusercontent.com/umaumax/wcat/master/wcat
 chmod u+x wcat
 ```
 
