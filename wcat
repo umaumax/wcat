@@ -29,7 +29,7 @@ function main() {
 		local pre_line=0
 	fi
 
-	local awk_reg='^\033\[38;5;238m *'"$line_no"'[^0-9]'
+	local awk_reg='^(\033\[0m)?\033\[38;5;238m *'"$line_no"'[^0-9]'
 	eval $CAT $file_path | awk -v base=$line_no -v range=$range -v pre_line=$pre_line '(pre_line+base-range)<=NR && NR<=(pre_line+base+range)' |
 		# NOTE: replace color of line number of bat
 		awk '! /'"$awk_reg"'/{print $0;} /'"$awk_reg"'/{gsub("\033\\[[0-9]m","\033[4m",$0); gsub("\033\\[38;5;238m","\033[4m",$0); printf "%s%s\n", $0,"\033[0m"; }'
