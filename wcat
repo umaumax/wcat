@@ -15,7 +15,9 @@ main() {
   range=$(echo "$@" | awk -F':' '{ if ( $3 != "" ) print $3; else print $4; }')
   if [[ -z $range ]]; then
     # NOTE: default range
-    range=5
+    WCAT_RANGE_TERMINAL_RATIO=${WCAT_RANGE_TERMINAL_RATIO:-100}
+    # NOTE: 1: for base line, 1: for terminal prompt line
+    range=$(echo "$(tput lines) * $WCAT_RANGE_TERMINAL_RATIO / 100 / 2 - 1 - 1" | bc)
   fi
   line_no=$(echo "$@" | awk -F':' '{print $2}')
   if [[ -z $line_no ]]; then
